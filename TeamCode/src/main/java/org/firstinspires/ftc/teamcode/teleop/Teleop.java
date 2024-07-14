@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
 @TeleOp(name = "Teleop 1")
 public class Teleop extends LinearOpMode {
@@ -19,11 +20,13 @@ public class Teleop extends LinearOpMode {
 
     //subsystems
     private MecanumDriveSubsystem m_Drive;
+    private SuperstructureSubsystem m_Superstructure;
 
     @Override
     public void runOpMode() {
         //Run when initializing
         m_Drive = new MecanumDriveSubsystem(hardwareMap);
+        m_Superstructure = new SuperstructureSubsystem(hardwareMap);
 
         Driver = new GamepadEx(gamepad1);
         Operator = new GamepadEx(gamepad2);
@@ -35,7 +38,15 @@ public class Teleop extends LinearOpMode {
         //Run immediately when starting
         while(!isStopRequested()) {
             //Periodic Opmode
+            
+            //Drivetrain method
             m_Drive.Drive(Driver.getLeftX(), Driver.getLeftY(), Driver.getRightX(), Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
+
+            //Superstructure preset - Zero everything
+            if (Operator.getButton(GamepadKeys.Button.BACK)) {
+                m_Superstructure.zeroPreset();
+            }
+
             //IMU Reset button
             if (Driver.getButton(GamepadKeys.Button.Y)) {
                 m_Drive.resetHeading();
