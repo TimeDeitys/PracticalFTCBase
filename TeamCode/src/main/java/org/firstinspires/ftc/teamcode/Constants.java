@@ -1,7 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
 
+@Config
 public class Constants {
     public static class DriveConstants {
         public static final double DampenMult = 0.3;
