@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.PIDCoefficients;
 @Config
 public class Constants {
     public static class DriveConstants {
+
+        public static final boolean SquareInputs = true;
         public static final double DampenMult = 0.3;
         public static final double DriveSpeedMult = 1;
 

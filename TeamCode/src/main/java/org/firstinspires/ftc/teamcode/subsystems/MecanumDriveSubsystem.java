@@ -9,6 +9,7 @@ import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.robotcore.external.Const;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
 
@@ -45,7 +46,7 @@ public class MecanumDriveSubsystem {
             m = Constants.DriveConstants.DriveSpeedMult;
         }
         Drive.driveFieldCentric(y*m, -x*m, t*m,
-                getHeading() + Constants.DriveConstants.IMUOffset);
+                getHeading() + Constants.DriveConstants.IMUOffset, Constants.DriveConstants.SquareInputs);
         drivePeriodic();
     }
 
@@ -56,7 +57,7 @@ public class MecanumDriveSubsystem {
         } else {
             m = Constants.DriveConstants.DriveSpeedMult;
         }
-        Drive.driveRobotCentric(y*m, -x*m, t*m);
+        Drive.driveRobotCentric(y*m, -x*m, t*m, Constants.DriveConstants.SquareInputs);
         drivePeriodic();
     }
 
