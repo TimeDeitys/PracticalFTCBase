@@ -6,6 +6,7 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.subsystems.ApriltagVisionSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
@@ -22,11 +23,14 @@ public class Teleop extends LinearOpMode {
     private MecanumDriveSubsystem m_Drive;
     private SuperstructureSubsystem m_Superstructure;
 
+    private ApriltagVisionSubsystem m_Camera;
+
     @Override
     public void runOpMode() {
         //Run when initializing
         m_Drive = new MecanumDriveSubsystem(hardwareMap);
         m_Superstructure = new SuperstructureSubsystem(hardwareMap);
+        m_Camera = new ApriltagVisionSubsystem(hardwareMap);
 
         Driver = new GamepadEx(gamepad1);
         Operator = new GamepadEx(gamepad2);

@@ -78,7 +78,7 @@ public class ApriltagVisionSubsystem {
     }
 
     public void ApriltagPeriodic() {
-
+    myAprilTagProcessor.getDetections();
     }
 
     public void AprilTagConfig() {
