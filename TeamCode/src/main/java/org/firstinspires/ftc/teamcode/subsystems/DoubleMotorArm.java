@@ -17,7 +17,7 @@ public class DoubleMotorArm {
 
     /**
      * Sets up the constructor for a Double motor arm.
-     * MAKE SURE TO INVERT ATLEAST ONE MOTOR
+     * MAKE SURE TO INVERT ATLEAST ONE MOTOR AND THAT CCW IS POSITIVE
      * PID will run off of the left motor's encoder
      *NOTE: THIS ARM WILL RESET ENCODER COUNTS WHEN INITIALIZED
      * @param motorLeft Left arm motor

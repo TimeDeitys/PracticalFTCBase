@@ -18,6 +18,7 @@ public class SingleMotorArm {
 
     /**
      * Sets up the constructor for a single motor arm.
+     * Make sure to invert the motor so that CCW is positive
      *NOTE: THIS ARM WILL RESET ENCODER COUNTS WHEN INITIALIZED
      * @param motor Motor for the armp
      * @param gearRatio Mechanism/Motor rotation ratio

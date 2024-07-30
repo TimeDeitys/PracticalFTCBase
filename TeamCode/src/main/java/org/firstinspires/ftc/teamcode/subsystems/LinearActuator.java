@@ -16,6 +16,7 @@ public class LinearActuator {
 
     /**
      * Sets up the constructor for a single motor Linear actuator.
+     * Make sure to invert the motor so that Positive is up
      *NOTE: THIS ACTUATOR WILL RESET ENCODER COUNTS WHEN INITIALIZED
      * @param motor Motor for the armp
      * @param countsPerInch Motor counts per inch traveled. Best found emperically
