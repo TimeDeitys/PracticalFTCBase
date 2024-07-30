@@ -48,6 +48,12 @@ public class SuperstructureSubsystem {
                 Constants.SuperstructureConstants.elevatorPID);
     }
 
+    public void enableDebug() {
+        Wrist.setDebug();
+        Arm.setDebug();
+        Elevator.setDebug();
+    }
+
     //Sample preset - Brings all mechanisms to 0
     public void zeroPreset() {
         Wrist.setAngle(0);

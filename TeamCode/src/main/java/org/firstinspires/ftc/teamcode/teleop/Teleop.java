@@ -30,7 +30,7 @@ public class Teleop extends LinearOpMode {
         //Run when initializing
         m_Drive = new MecanumDriveSubsystem(hardwareMap);
         m_Superstructure = new SuperstructureSubsystem(hardwareMap);
-        m_Camera = new ApriltagVisionSubsystem(hardwareMap);
+        //m_Camera = new ApriltagVisionSubsystem(hardwareMap);
 
         Driver = new GamepadEx(gamepad1);
         Operator = new GamepadEx(gamepad2);
