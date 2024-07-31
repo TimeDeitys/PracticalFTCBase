@@ -2,13 +2,17 @@ package org.firstinspires.ftc.teamcode.teleop;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+import android.graphics.Color;
+
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.subsystems.ApriltagHuskylens;
 import org.firstinspires.ftc.teamcode.subsystems.ApriltagVisionSubsystem;
+import org.firstinspires.ftc.teamcode.subsystems.ColorHuskylens;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
@@ -25,21 +29,21 @@ public class Teleop extends LinearOpMode {
     private MecanumDriveSubsystem m_Drive;
     private SuperstructureSubsystem m_Superstructure;
 
-    private ApriltagVisionSubsystem m_Camera;
+    private ApriltagHuskylens m_ATLens;
+    private ColorHuskylens m_COLORLens;
 
     @Override
     public void runOpMode() {
         //Run when initializing
-        m_Drive = new MecanumDriveSubsystem(hardwareMap);
+        m_Drive = new MecanumDriveSubsystem(hardwareMap, telemetry);
         m_Superstructure = new SuperstructureSubsystem(hardwareMap);
-        //m_Camera = new ApriltagVisionSubsystem(hardwareMap);
+        m_ATLens = new ApriltagHuskylens(hardwareMap, telemetry);
+        m_COLORLens = new ColorHuskylens(hardwareMap, telemetry);
 
         Driver = new GamepadEx(gamepad1);
         Operator = new GamepadEx(gamepad2);
 
-        imuReset = new GamepadButton(
-                Driver, GamepadKeys.Button.Y);
-
+        telemetry.update();
         waitForStart();
         //Run immediately when starting
 
@@ -47,9 +51,17 @@ public class Teleop extends LinearOpMode {
         while (opModeIsActive()) {
                 //Periodic Opmode
                 m_Superstructure.periodic();
+                m_ATLens.runHuskyLens();
+                m_COLORLens.runHuskyLens();
                 telemetry.addData(
                         "Periodic currently running",
                         "Operator can hold left bumper for manual arm control");
+
+
+                //IMU Reset button
+                if (Driver.getButton(GamepadKeys.Button.Y)) {
+                   m_Drive.resetHeading();
+                }
 
                 //Drivetrain method
                 m_Drive.Drive(Driver.getLeftX(), Driver.getLeftY(), Driver.getRightX(), Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
@@ -84,11 +96,6 @@ public class Teleop extends LinearOpMode {
                             "MANUAL INPUT ENABLED",
                             "A = ARM, B = WRIST, X = ELEVATOR." + "USE LEFT STICK TO CONTROL INPUT");
 
-                }
-
-                //IMU Reset button
-                if (Driver.getButton(GamepadKeys.Button.Y)) {
-                    m_Drive.resetHeading();
                 }
 
                 //Pincher controls

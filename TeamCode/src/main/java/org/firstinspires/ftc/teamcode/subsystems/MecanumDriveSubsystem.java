@@ -20,11 +20,15 @@ public class MecanumDriveSubsystem {
     private Motor rightFront;
     private Motor leftBack;
     private Motor rightBack;
+    private Telemetry telemetry;
+
+    private double IMUOffset;
 
     public RevIMU imu;
 
     //Creates new Mecanum Drivetrain
-    public MecanumDriveSubsystem(HardwareMap Map) {
+    public MecanumDriveSubsystem(HardwareMap Map, Telemetry telemetry) {
+        this.telemetry = telemetry;
 
         leftFront = new Motor(Map, "leftFront");
         rightFront = new Motor(Map, "rightFront");
@@ -45,7 +49,7 @@ public class MecanumDriveSubsystem {
         } else {
             m = Constants.DriveConstants.DriveSpeedMult;
         }
-        Drive.driveFieldCentric(y*m, x*m, t*m,
+        Drive.driveFieldCentric(-y*m, -x*m, t*m,
                 getHeading() + Constants.DriveConstants.IMUOffset, Constants.DriveConstants.SquareInputs);
         drivePeriodic();
     }
@@ -62,15 +66,15 @@ public class MecanumDriveSubsystem {
     }
 
     public double getHeading() {
-        return imu.getAbsoluteHeading();
+        return imu.getAbsoluteHeading() - IMUOffset;
     }
 
     public void resetHeading() {
-        imu.reset();
+        IMUOffset = imu.getAbsoluteHeading();
     }
 
     public void drivePeriodic() {
-        //telemetry.addData("Heading", getHeading());
+        telemetry.addData("Heading", getHeading());
         //Called once per scheduler run
         //PUT PERIODIC HERE
     }
