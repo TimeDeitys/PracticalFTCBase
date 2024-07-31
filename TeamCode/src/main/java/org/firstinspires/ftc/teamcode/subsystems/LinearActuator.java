@@ -18,7 +18,7 @@ public class LinearActuator {
      * Sets up the constructor for a single motor Linear actuator.
      * Make sure to invert the motor so that Positive is up
      *NOTE: THIS ACTUATOR WILL RESET ENCODER COUNTS WHEN INITIALIZED
-     * @param motor Motor for the armp
+     * @param motor Motor for the arm
      * @param countsPerInch Motor counts per inch traveled. Best found emperically
      * @param Invert  True/false for direction inversion
      * @param PIDConstants Constants for arm PID tuning
@@ -37,7 +37,7 @@ public class LinearActuator {
      * Returns the current extension of the actuator in inches
      */
     public double getInches() {
-        return (motor.getCurrentPosition() * countsPerInch);
+        return (motor.getCurrentPosition());
     }
 
     /**
@@ -82,17 +82,17 @@ public class LinearActuator {
         if (PIDOn) {
             motor.set(armController.calculate(getInches(), setpoint));
         }  else {
-            telemetry.addData("MOTOR PID IS OFF", "");
+          //  telemetry.addData("MOTOR PID IS OFF", 0);
         }
 
         //Debug periodic
         if (isDebug) {
-            telemetry.addData("DEBUG IS ON", "");
+          /*  telemetry.addData("DEBUG IS ON", "");
             telemetry.addData("INCHES", getInches());
             telemetry.addData("MOTOR COUNTS", motor.getCurrentPosition());
             telemetry.addData("MOTOR SETPOINT", armController.getSetPoint());
             telemetry.addData("PID OUTPUT", armController.calculate(getInches(), setpoint));
-            telemetry.addData("POSITION ERROR", armController.getPositionError());
+            telemetry.addData("POSITION ERROR", armController.getPositionError()); */
         }
 
     }

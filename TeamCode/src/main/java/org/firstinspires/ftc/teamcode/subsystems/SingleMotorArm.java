@@ -85,17 +85,17 @@ public class SingleMotorArm {
         if (PIDOn) {
             motor.set(armController.calculate(getAngle(), setpoint));
         }  else {
-            telemetry.addData("MOTOR PID IS OFF", "");
+          //  telemetry.addData("MOTOR PID IS OFF", 0);
         }
 
         //Debug periodic
         if (isDebug) {
-            telemetry.addData("DEBUG IS ON", "");
+          /*  telemetry.addData("DEBUG IS ON", "");
             telemetry.addData("ANGLE", getAngle());
             telemetry.addData("MOTOR COUNTS", motor.getCurrentPosition());
             telemetry.addData("MOTOR SETPOINT", armController.getSetPoint());
             telemetry.addData("PID OUTPUT", armController.calculate(getAngle(), setpoint));
-            telemetry.addData("ANGLE ERROR", armController.getPositionError());
+            telemetry.addData("ANGLE ERROR", armController.getPositionError()); */
         }
 
     }

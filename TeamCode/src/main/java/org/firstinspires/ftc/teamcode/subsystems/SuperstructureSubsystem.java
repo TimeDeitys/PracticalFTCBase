@@ -1,8 +1,14 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
+import com.arcrobotics.ftclib.hardware.ServoEx;
+import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
 
 public class SuperstructureSubsystem {
@@ -11,12 +17,17 @@ public class SuperstructureSubsystem {
     public DoubleMotorArm Arm;
     public LinearActuator Elevator;
 
+    public DoubleServoPincher Pincher;
+
     private Motor leftArmMotor;
     private Motor rightArmMotor;
 
     private Motor wristMotor;
 
     private Motor elevatorMotor;
+
+    private Servo leftServo;
+    private Servo rightServo;
 
     //Creates new superstructure (arm, elevator, wrist)
     public SuperstructureSubsystem(HardwareMap Map){
@@ -25,6 +36,9 @@ public class SuperstructureSubsystem {
         rightArmMotor = new Motor(Map, "rightArmMotor");
         wristMotor = new Motor(Map, "wristMotor");
         elevatorMotor = new Motor(Map, "elevatorMotor");
+
+        leftServo = Map.get(Servo.class, "leftServo");
+        rightServo = Map.get(Servo.class, "rightServo");
 
         //Link motors to superstructure parts
         Wrist = new SingleMotorArm(
@@ -37,15 +51,17 @@ public class SuperstructureSubsystem {
                 leftArmMotor,
                 rightArmMotor,
                 Constants.SuperstructureConstants.armGearRatio,
-                false,
                 true,
+                false,
                 Constants.SuperstructureConstants.armPID);
 
         Elevator = new LinearActuator(
                 elevatorMotor,
                 Constants.SuperstructureConstants.elevatorCPI,
-                false,
+                true,
                 Constants.SuperstructureConstants.elevatorPID);
+
+        Pincher = new DoubleServoPincher(leftServo, rightServo);
     }
 
     public void enableDebug() {
@@ -59,6 +75,27 @@ public class SuperstructureSubsystem {
         Wrist.setAngle(0);
         Arm.setAngle(0);
         Elevator.setInches(0);
+    }
+
+    //Sample preset - Brings all mechanisms to high dropoff
+    public void highPreset() {
+        Wrist.setAngle(1200);
+        Arm.setAngle(2800);
+        Elevator.setInches(1360);
+    }
+
+    //Sample preset - Brings all mechanisms to pickup
+    public void pickupPreset() {
+        Wrist.setAngle(1650);
+        Arm.setAngle(0);
+        Elevator.setInches(0);
+    }
+
+    //Sample preset - Brings all mechanisms to medium
+    public void mediumPreset() {
+        Wrist.setAngle(1130);
+        Arm.setAngle(1970);
+        Elevator.setInches(1360);
     }
 
     /**
@@ -78,5 +115,14 @@ public class SuperstructureSubsystem {
 
         if (elevatorToggle) { Elevator.setOutput(Input); }
         else { Elevator.setOutput(0); }
+    }
+
+    public void periodic() {
+        Arm.armPeriodic();
+        Wrist.armPeriodic();
+        Elevator.armPeriodic();
+      /*  telemetry.addData("Arm Angle", Arm.getAngle());
+        telemetry.addData("Wrist Angle", Wrist.getAngle());
+        telemetry.addData("Elevator Inches", Elevator.getInches()); */
     }
 }

@@ -45,7 +45,7 @@ public class MecanumDriveSubsystem {
         } else {
             m = Constants.DriveConstants.DriveSpeedMult;
         }
-        Drive.driveFieldCentric(y*m, -x*m, t*m,
+        Drive.driveFieldCentric(y*m, x*m, t*m,
                 getHeading() + Constants.DriveConstants.IMUOffset, Constants.DriveConstants.SquareInputs);
         drivePeriodic();
     }
