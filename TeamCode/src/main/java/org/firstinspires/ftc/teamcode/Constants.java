@@ -12,7 +12,7 @@ public class Constants {
         public static final double DriveSpeedMult = 1;
 
         //Initial IMU angle offset for field centric in degrees
-        public static final double IMUOffset = -90;
+        public static final double IMUOffset = 0;
     }
 
     public static class SuperstructureConstants {

@@ -1,9 +1,5 @@
 package org.firstinspires.ftc.teamcode.teleop;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
-import android.graphics.Color;
-
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
@@ -11,13 +7,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.ApriltagHuskylens;
-import org.firstinspires.ftc.teamcode.subsystems.ApriltagVisionSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.ColorHuskylens;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
-@TeleOp(name = "Teleop 1")
-public class Teleop extends LinearOpMode {
+@TeleOp(name = "Example Teleop")
+public class ExampleTeleop extends LinearOpMode {
 
     //Gamepad bindings
     private GamepadEx Driver;
