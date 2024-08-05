@@ -11,8 +11,8 @@ import org.firstinspires.ftc.teamcode.subsystems.ColorHuskylens;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
-@TeleOp(name = "Example Teleop")
-public class ExampleTeleop extends LinearOpMode {
+@TeleOp(name = "Lightning Example Teleop")
+public class LightningExampleTeleop extends LinearOpMode {
 
     //Gamepad bindings
     private GamepadEx Driver;
@@ -31,7 +31,7 @@ public class ExampleTeleop extends LinearOpMode {
     public void runOpMode() {
         //Run when initializing
         m_Drive = new MecanumDriveSubsystem(hardwareMap, telemetry);
-        m_Superstructure = new SuperstructureSubsystem(hardwareMap);
+        m_Superstructure = new SuperstructureSubsystem(hardwareMap, telemetry);
         m_ATLens = new ApriltagHuskylens(hardwareMap, telemetry);
         m_COLORLens = new ColorHuskylens(hardwareMap, telemetry);
 
@@ -102,9 +102,6 @@ public class ExampleTeleop extends LinearOpMode {
                     m_Superstructure.Pincher.close();
                 }
 
-            telemetry.addData("Arm Angle", m_Superstructure.Arm.getAngle());
-            telemetry.addData("Wrist Angle", m_Superstructure.Wrist.getAngle());
-            telemetry.addData("Elevator Inches", m_Superstructure.Elevator.getInches());
                 telemetry.update();
             }
         }
