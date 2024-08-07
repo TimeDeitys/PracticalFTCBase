@@ -18,6 +18,7 @@ public class ApriltagHuskylens {
 
     private double TagX;
     private double TagY;
+    private double TagSize;
 
     Deadline rateLimit = new Deadline(READ_PERIOD, TimeUnit.MILLISECONDS);
 
@@ -43,9 +44,11 @@ public class ApriltagHuskylens {
        for(int i = 0; i < blocks.length; i++) {
            TagX = blocks[i].x;
            TagY = blocks[i].y;
+           TagSize = blocks[i].width;
            telemetry.addData("block", blocks[i].toString());
            telemetry.addData("Tag X", getTagX());
            telemetry.addData("Tag Y", getTagY());
+           telemetry.addData("Tag Size", getTagSize());
        }
     }
 
@@ -55,5 +58,9 @@ public class ApriltagHuskylens {
 
     public double getTagY() {
         return TagY;
+    }
+
+    public double getTagSize() {
+        return TagSize;
     }
 }

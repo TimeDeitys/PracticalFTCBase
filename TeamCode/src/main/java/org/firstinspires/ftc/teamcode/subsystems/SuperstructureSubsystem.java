@@ -28,9 +28,11 @@ public class SuperstructureSubsystem {
 
     private Servo leftServo;
     private Servo rightServo;
+    private Telemetry telemetry;
 
     //Creates new superstructure (arm, elevator, wrist)
-    public SuperstructureSubsystem(HardwareMap Map){
+    public SuperstructureSubsystem(HardwareMap Map, Telemetry telemetry){
+        this.telemetry = telemetry;
         //Create motor objects
         leftArmMotor = new Motor(Map, "leftArmMotor");
         rightArmMotor = new Motor(Map, "rightArmMotor");

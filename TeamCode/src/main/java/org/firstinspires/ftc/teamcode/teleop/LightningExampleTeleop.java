@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.ApriltagHuskylens;
+import org.firstinspires.ftc.teamcode.subsystems.ApriltagUSBCamera;
 import org.firstinspires.ftc.teamcode.subsystems.ColorHuskylens;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
@@ -25,7 +26,6 @@ public class LightningExampleTeleop extends LinearOpMode {
     private SuperstructureSubsystem m_Superstructure;
 
     private ApriltagHuskylens m_ATLens;
-    private ColorHuskylens m_COLORLens;
 
     @Override
     public void runOpMode() {
@@ -33,7 +33,6 @@ public class LightningExampleTeleop extends LinearOpMode {
         m_Drive = new MecanumDriveSubsystem(hardwareMap, telemetry);
         m_Superstructure = new SuperstructureSubsystem(hardwareMap, telemetry);
         m_ATLens = new ApriltagHuskylens(hardwareMap, telemetry);
-        m_COLORLens = new ColorHuskylens(hardwareMap, telemetry);
 
         Driver = new GamepadEx(gamepad1);
         Operator = new GamepadEx(gamepad2);
@@ -47,7 +46,6 @@ public class LightningExampleTeleop extends LinearOpMode {
                 //Periodic Opmode
                 m_Superstructure.periodic();
                 m_ATLens.runHuskyLens();
-                m_COLORLens.runHuskyLens();
                 telemetry.addData(
                         "Periodic currently running",
                         "Operator can hold left bumper for manual arm control");

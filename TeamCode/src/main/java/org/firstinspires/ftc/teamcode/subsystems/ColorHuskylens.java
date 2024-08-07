@@ -16,6 +16,7 @@ public class ColorHuskylens {
 
     private double TagX;
     private double TagY;
+    private double TagSize;
 
     Deadline rateLimit = new Deadline(READ_PERIOD, TimeUnit.MILLISECONDS);
 
@@ -44,6 +45,7 @@ public class ColorHuskylens {
            telemetry.addData("block", blocks[i].toString());
            telemetry.addData("Tag X", getTagX());
            telemetry.addData("Tag Y", getTagY());
+           telemetry.addData("Tag Size", getTagSize());
        }
     }
 
@@ -68,5 +70,9 @@ public class ColorHuskylens {
 
     public double getTagY() {
         return TagY;
+    }
+
+    public double getTagSize() {
+        return TagSize;
     }
 }

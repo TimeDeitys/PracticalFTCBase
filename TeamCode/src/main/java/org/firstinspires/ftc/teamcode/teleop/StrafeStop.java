@@ -4,6 +4,7 @@ import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -12,8 +13,8 @@ import org.firstinspires.ftc.teamcode.subsystems.ColorHuskylens;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
-@TeleOp(name = "TagFollower")
-public class TagFollower extends LinearOpMode {
+@Autonomous(name = "StrafeStop")
+public class StrafeStop extends LinearOpMode {
 
     //Gamepad bindings
     private GamepadEx Driver;
@@ -26,10 +27,11 @@ public class TagFollower extends LinearOpMode {
     private SuperstructureSubsystem m_Superstructure;
 
     private ApriltagHuskylens m_ATLens;
+    private ColorHuskylens m_ColorLens;
 
     public double tagXSetpoint = 150;
 
-    private PIDController TagController;
+    private PIDController headingController;
 
     @Override
     public void runOpMode() {
@@ -37,11 +39,12 @@ public class TagFollower extends LinearOpMode {
         m_Drive = new MecanumDriveSubsystem(hardwareMap, telemetry);
         m_Superstructure = new SuperstructureSubsystem(hardwareMap, telemetry);
         m_ATLens = new ApriltagHuskylens(hardwareMap, telemetry);
+        m_ColorLens = new ColorHuskylens(hardwareMap, telemetry);
 
         Driver = new GamepadEx(gamepad1);
         Operator = new GamepadEx(gamepad2);
 
-        TagController = new PIDController(0.005, 0, 0);
+        headingController = new PIDController(0.005, 0, 0);
 
         telemetry.update();
         waitForStart();
@@ -58,15 +61,16 @@ public class TagFollower extends LinearOpMode {
 
                 //Drivetrain method
 
-                if (Driver.getButton(GamepadKeys.Button.LEFT_BUMPER)) {
-                    m_Drive.DriveRobotRelative(TagController.calculate(tagXSetpoint, m_ATLens.getTagX()), Driver.getLeftX(), Driver.getRightX(), Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
+                if (m_ATLens.getTagX() < 150) {
+                    m_Drive.DriveRobotRelative(0.3, 0, headingController.calculate(0, m_Drive.getHeading()), false);
                 } else {
-                    m_Drive.Drive(Driver.getLeftX(), Driver.getLeftY(), Driver.getRightX(), Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
+                    if (m_ATLens.getTagSize() < 75 ) {
+                        m_Drive.DriveRobotRelative(0, 0.2, headingController.calculate(0, m_Drive.getHeading()), false);
+                    }  else {
+                        m_Drive.Drive(0, 0, 0, false);
+                    }
                 }
-                //IMU Reset button
-                if (Driver.getButton(GamepadKeys.Button.Y)) {
-                    m_Drive.resetHeading();
-                }
+
 
                 telemetry.update();
             }
