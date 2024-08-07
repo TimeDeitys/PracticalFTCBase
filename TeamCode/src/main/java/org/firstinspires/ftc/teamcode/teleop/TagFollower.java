@@ -36,7 +36,7 @@ public class TagFollower extends LinearOpMode {
     public void runOpMode() {
         //Run when initializing
         m_Drive = new MecanumDriveSubsystem(hardwareMap, telemetry);
-        m_Superstructure = new SuperstructureSubsystem(hardwareMap);
+        m_Superstructure = new SuperstructureSubsystem(hardwareMap, telemetry);
         m_ATLens = new ApriltagHuskylens(hardwareMap, telemetry);
         m_COLORLens = new ColorHuskylens(hardwareMap, telemetry);
 

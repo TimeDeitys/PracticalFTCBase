@@ -32,9 +32,6 @@ public class ApriltagUSBCamera {
     public void periodic() {
         telemetryAprilTag();
 
-        // Push telemetry to the Driver Station.
-        telemetry.update();
-
     }
 
     private void initAprilTag() {

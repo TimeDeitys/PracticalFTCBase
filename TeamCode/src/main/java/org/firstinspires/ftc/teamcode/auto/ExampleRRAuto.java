@@ -38,7 +38,7 @@ public class ExampleRRAuto extends LinearOpMode {
     public void runOpMode() {
 
         //Run when initializing
-        m_Superstructure = new SuperstructureSubsystem(hardwareMap);
+        m_Superstructure = new SuperstructureSubsystem(hardwareMap, telemetry);
         m_COLORLens = new ColorHuskylens(hardwareMap, telemetry);
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, StartingPose);
