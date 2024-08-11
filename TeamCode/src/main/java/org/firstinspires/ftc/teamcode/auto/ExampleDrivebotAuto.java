@@ -45,6 +45,8 @@ public class ExampleDrivebotAuto extends LinearOpMode {
             //AUTO PATH 1
            m_Drive.AutoDriveRC(12, 0, 5);
            //Drives forward 1 foot
+            m_Drive.AutoDriveRC(12, 0, 5);
+            //Drives forward 1 foot
 
         } else if (objectPosition == 2) {
             //AUTO PATH 2
@@ -53,8 +55,8 @@ public class ExampleDrivebotAuto extends LinearOpMode {
 
         } else {
             //AUTO PATH 3
-            m_Drive.AutoDriveRC(0, -12, 5);
-            //Drives left 1 Foot
+            m_Drive.SetHeading(90, 5);
+            //Turns to 90 degrees
 
         }
 

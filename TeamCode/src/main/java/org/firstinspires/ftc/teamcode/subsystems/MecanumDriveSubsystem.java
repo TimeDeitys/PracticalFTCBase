@@ -161,10 +161,44 @@ public class MecanumDriveSubsystem {
             //Stop all motion
             DriveRobotRelative(0,0,0, false);
             resetDriveEncoders();
-
-
-
-
         }
+    }
+
+    /**
+     * Autonomously Drive to a specific heading.
+     * @param HeadingTarget forward/backward in inches (forward is positive)
+     * @param TimeoutS  Allowed time to run command
+     */
+    public void SetHeading(double HeadingTarget, double TimeoutS) {
+        double initialHeading = getHeading();
+
+        if(linearOpMode.opModeIsActive()) {
+
+            //Create PID constants
+            PIDCoefficients HC = Constants.AutoConstants.HeadingPID;
+
+
+            PIDController HeadingController = new PIDController(HC.p, HC.i, HC.d);
+            HeadingController.setTolerance(0.1);
+
+            runtime.reset();
+
+            HeadingController.setSetPoint(HeadingTarget);
+
+            while(linearOpMode.opModeIsActive() &&
+                    (runtime.seconds() < TimeoutS) &&
+                    !HeadingController.atSetPoint()) {
+                //Drivebot Periodic
+                //actually drives the robot.
+                DriveRobotRelative(0, 0, HeadingController.calculate(getHeading(), initialHeading), false);
+                telemetry.addData("AUTO DRIVE STATUS", "HEADING");
+                telemetry.addData("Heading;", getHeading());
+            }
+
+            //Stop all motion
+            DriveRobotRelative(0,0,0, false);
+            resetDriveEncoders();
+        }
+
     }
 }
