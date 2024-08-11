@@ -22,6 +22,14 @@ public class ApriltagUSBCamera {
     private Telemetry telemetry;
     private HardwareMap Map;
 
+    public double TagX;
+    public double TagY;
+    public double TagZ;
+
+    public double TagInches;
+    public double TagAngle;
+    public double TagID;
+
     public ApriltagUSBCamera(HardwareMap Map, Telemetry telemetry) {
         this.telemetry = telemetry;
         this.Map = Map;
@@ -108,6 +116,13 @@ public class ApriltagUSBCamera {
                 telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)", detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.z));
                 telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
                 telemetry.addLine(String.format("RBE %6.1f %6.1f %6.1f  (inch, deg, deg)", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.elevation));
+                TagX = detection.ftcPose.x;
+                TagY = detection.ftcPose.x;
+                TagZ = detection.ftcPose.x;
+
+                TagInches = detection.ftcPose.range;
+                TagAngle = detection.ftcPose.yaw;
+
             } else {
                 telemetry.addLine(String.format("\n==== (ID %d) Unknown", detection.id));
                 telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detection.center.x, detection.center.y));
