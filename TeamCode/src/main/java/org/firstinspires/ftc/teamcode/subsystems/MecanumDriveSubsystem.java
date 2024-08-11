@@ -103,6 +103,8 @@ public class MecanumDriveSubsystem {
     }
 
     //Drivebot scheduler: a custom movement utility.
+    //This is an autonomous tool, but it can also be used for automatic movement in teleop.
+    //TODO: PID for Strafe/translation/heading needs to be tuned.
 
     //finds the amount of ticks to move for a given distance in inches
     public static double driveDistance(double distance) {

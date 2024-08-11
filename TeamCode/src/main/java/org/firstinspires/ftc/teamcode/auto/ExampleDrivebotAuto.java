@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
 @Config
-@Autonomous(name = "BLUE_TEST_AUTO_PIXEL", group = "Autonomous")
+@Autonomous(name = "DrivebotAuto", group = "Autonomous")
 public class ExampleDrivebotAuto extends LinearOpMode {
     //Instantiate mechanisms
     private SuperstructureSubsystem m_Superstructure;
@@ -45,8 +45,6 @@ public class ExampleDrivebotAuto extends LinearOpMode {
             //AUTO PATH 1
            m_Drive.AutoDriveRC(12, 0, 5);
            //Drives forward 1 foot
-            m_Drive.AutoDriveRC(12, 0, 5);
-            //Drives forward 1 foot
 
         } else if (objectPosition == 2) {
             //AUTO PATH 2

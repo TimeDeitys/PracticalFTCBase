@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.subsystems.ColorHuskylens;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
 @Config
-@Autonomous(name = "BLUE_TEST_AUTO_PIXEL", group = "Autonomous")
+@Autonomous(name = "RRAuto", group = "Autonomous")
 public class ExampleRRAuto extends LinearOpMode {
     //Instantiate mechanisms
     private SuperstructureSubsystem m_Superstructure;
