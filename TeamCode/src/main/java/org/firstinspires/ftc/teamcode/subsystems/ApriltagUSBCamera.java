@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import android.util.Size;
 
+import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -29,6 +30,7 @@ public class ApriltagUSBCamera {
     public double TagInches;
     public double TagAngle;
     public double TagID;
+    private double TagCenter;
 
     public ApriltagUSBCamera(HardwareMap Map, Telemetry telemetry) {
         this.telemetry = telemetry;
@@ -42,11 +44,9 @@ public class ApriltagUSBCamera {
 
         // Push telemetry to the Driver Station.
         telemetry.update();
-
     }
 
     private void initAprilTag() {
-
         // Create the AprilTag processor.
         aprilTag = new AprilTagProcessor.Builder()
 
@@ -119,6 +119,7 @@ public class ApriltagUSBCamera {
                 TagX = detection.ftcPose.x;
                 TagY = detection.ftcPose.x;
                 TagZ = detection.ftcPose.x;
+                TagCenter = detection.center.x;
 
                 TagInches = detection.ftcPose.range;
                 TagAngle = detection.ftcPose.yaw;
@@ -135,6 +136,19 @@ public class ApriltagUSBCamera {
         telemetry.addLine("RBE = Range, Bearing & Elevation");
 
     }   // end method telemetryAprilTag()
+
+    //returns a path 1, 2, or 3 depending on where the block is located
+    //Assumes a default camera resolution width of 640
+    public int GetCenterstagePath() {
+            if (TagCenter < 213) {
+                return 1;
+            } else if (TagCenter > 213 && TagCenter < 426) {
+                return 2;
+            } else if (TagCenter > 426) {
+                return 3;
+            }
+        return 0;
+    }
 
     public void disableProcessor() {
         visionPortal.setProcessorEnabled(aprilTag, false);

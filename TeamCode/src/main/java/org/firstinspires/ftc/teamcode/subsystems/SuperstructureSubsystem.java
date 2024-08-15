@@ -102,20 +102,21 @@ public class SuperstructureSubsystem {
 
     /**
      * Sets the arm into a manual input mode where the imput can be toggled by button
-     * @param Input raw input - should be a joystick
+     * @param input raw input - should be a joystick
      * @param armToggle button to input to arm
      * @param wristToggle button to input to wrist
      * @param elevatorToggle button to input to elevator
      */
-    public void ManualInput(double Input, boolean armToggle, boolean wristToggle, boolean elevatorToggle) {
+    public void ManualInput(double input, boolean armToggle, boolean wristToggle, boolean elevatorToggle) {
 
-        if (armToggle) { Arm.setOutput(Input); }
+        if (armToggle) { Arm.setOutput(input); }
         else { Arm.setOutput(0); }
+//        Arm.setOutput(armToggle ? input : 0);
 
-        if (wristToggle) { Wrist.setOutput(Input); }
+        if (wristToggle) { Wrist.setOutput(input); }
         else { Wrist.setOutput(0); }
 
-        if (elevatorToggle) { Elevator.setOutput(Input); }
+        if (elevatorToggle) { Elevator.setOutput(input); }
         else { Elevator.setOutput(0); }
     }
 

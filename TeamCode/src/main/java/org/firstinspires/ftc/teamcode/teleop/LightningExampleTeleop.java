@@ -76,7 +76,6 @@ public class LightningExampleTeleop extends LinearOpMode {
                     m_Superstructure.highPreset();
                 }
 
-
                 //Superstructure manual input toggle - Triggered by holding holding left bumper
                 if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
                     m_Superstructure.ManualInput(

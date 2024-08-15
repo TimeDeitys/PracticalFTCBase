@@ -3,11 +3,16 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
+import com.arcrobotics.ftclib.geometry.Rotation2d;
+import com.arcrobotics.ftclib.geometry.Translation2d;
 import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.arcrobotics.ftclib.kinematics.wpilibkinematics.MecanumDriveKinematics;
+import com.arcrobotics.ftclib.kinematics.wpilibkinematics.MecanumDriveOdometry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -27,6 +32,8 @@ public class MecanumDriveSubsystem {
     private Motor leftBack;
     private Motor rightBack;
     private Telemetry telemetry;
+    //private MecanumDriveKinematics NoDeadwheelKinematics;
+    //private MecanumDriveOdometry NoDeadwheelOdometry
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -45,9 +52,13 @@ public class MecanumDriveSubsystem {
 
         Drive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
 
+        //Odometry for if there are no deadwheels
+        //NoDeadwheelKinematics = new MecanumDriveKinematics(new Translation2d(-0.25, 0.25), new Translation2d(0.25, 0.25), new Translation2d(-0.25, -0.25), new Translation2d(0.25, -0.25));
+        //NoDeadwheelOdometry = new MecanumDriveOdometry(NoDeadwheelKinematics, new Rotation2d(getHeading()));
+        //TODO: This portion is a WIP for a robot without 2 deadwheel odometry.
+
         imu = new RevIMU(Map, "imu");
         imu.init();
-
     }
 
     public void Drive(double x, double y, double t, boolean Dampen) {
@@ -107,7 +118,7 @@ public class MecanumDriveSubsystem {
     //TODO: PID for Strafe/translation/heading needs to be tuned.
 
     //finds the amount of ticks to move for a given distance in inches
-    public static double driveDistance(double distance) {
+    public static int driveDistance(double distance) {
         double drive = (Constants.AutoConstants.COUNTS_PER_INCH);
         int outputTicks = (int) Math.floor(drive * distance);
         return outputTicks;
@@ -140,8 +151,8 @@ public class MecanumDriveSubsystem {
             StrafeController.setTolerance(Constants.AutoConstants.PIDTolerance);
 
             //set target positions
-            ForwardTarget = (int) driveDistance(Forward);
-            StrafeTarget = (int) driveDistance(Right);
+            ForwardTarget = driveDistance(Forward);
+            StrafeTarget = driveDistance(Right);
 
             runtime.reset();
 
