@@ -20,7 +20,7 @@ public class SingleMotorArm {
      * Sets up the constructor for a single motor arm.
      * Make sure to invert the motor so that CCW is positive
      *NOTE: THIS ARM WILL RESET ENCODER COUNTS WHEN INITIALIZED
-     * @param motor Motor for the armp
+     * @param motor Motor for the arm
      * @param gearRatio Mechanism/Motor rotation ratio
      * @param Invert  True/false for direction inversion
      * @param PIDConstants Constants for arm PID tuning
@@ -62,6 +62,11 @@ public class SingleMotorArm {
         motor.set(speed);
     }
 
+    //zero the encoder
+    public void setZero() {
+        motor.resetEncoder();
+    }
+
     /**
      * Manually reset the PID Constants
      * @param PIDConstants takes a PIDCoefficients object for constants
@@ -85,17 +90,17 @@ public class SingleMotorArm {
         if (PIDOn) {
             motor.set(armController.calculate(getAngle(), setpoint));
         }  else {
-          //  telemetry.addData("MOTOR PID IS OFF", 0);
+           // telemetry.addData("MOTOR PID IS OFF", 0);
         }
 
         //Debug periodic
         if (isDebug) {
-          /*  telemetry.addData("DEBUG IS ON", "");
+         /*   telemetry.addData("DEBUG IS ON", "");
             telemetry.addData("ANGLE", getAngle());
             telemetry.addData("MOTOR COUNTS", motor.getCurrentPosition());
             telemetry.addData("MOTOR SETPOINT", armController.getSetPoint());
             telemetry.addData("PID OUTPUT", armController.calculate(getAngle(), setpoint));
-            telemetry.addData("ANGLE ERROR", armController.getPositionError()); */
+            telemetry.addData("ANGLE ERROR", armController.getPositionError());  */
         }
 
     }

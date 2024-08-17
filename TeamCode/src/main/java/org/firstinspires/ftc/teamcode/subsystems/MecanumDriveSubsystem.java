@@ -55,7 +55,7 @@ public class MecanumDriveSubsystem {
         //Odometry for if there are no deadwheels
         //NoDeadwheelKinematics = new MecanumDriveKinematics(new Translation2d(-0.25, 0.25), new Translation2d(0.25, 0.25), new Translation2d(-0.25, -0.25), new Translation2d(0.25, -0.25));
         //NoDeadwheelOdometry = new MecanumDriveOdometry(NoDeadwheelKinematics, new Rotation2d(getHeading()));
-        //TODO: This portion is a WIP for a robot without 2 deadwheel odometry.
+        //TODO: This portion is a WIP for a robot without 2 dead-wheel odometry.
 
         imu = new RevIMU(Map, "imu");
         imu.init();

@@ -69,6 +69,12 @@ public class DoubleMotorArm {
         motorRight.set(speed);
     }
 
+    //zero the encoder
+    public void setZero() {
+        motorLeft.resetEncoder();
+        motorRight.resetEncoder();
+    }
+
     /**
      * Manually reset the PID Constants
      * @param PIDConstants takes a PIDCoefficients object for constants
@@ -98,7 +104,7 @@ public class DoubleMotorArm {
 
         //Debug periodic
         if (isDebug) {
-          /*  telemetry.addData("DEBUG IS ON", "");
+         /*   telemetry.addData("DEBUG IS ON", "");
             telemetry.addData("ANGLE", getAngle());
             telemetry.addData("MOTOR COUNTS", motorLeft.getCurrentPosition());
             telemetry.addData("MOTOR SETPOINT", armController.getSetPoint());

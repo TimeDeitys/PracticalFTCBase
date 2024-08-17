@@ -29,7 +29,7 @@ public class ColorHuskylens {
         if (!huskylens.knock()) {
             telemetry.addData(">>", "Problem communicating with" + huskylens.getDeviceName());
         } else {
-      //      telemetry.addData(">>", "Press Start to continue with AT");
+            telemetry.addData(">>", "Press Start to continue with Color");
         }
 
         huskylens.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);
