@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
@@ -85,7 +87,7 @@ public class FlywheelShooter {
 
         //Debug periodic
         if (isDebug) {
-          /*  telemetry.addData("DEBUG IS ON", "");
+           /* telemetry.addData("DEBUG IS ON", "");
             telemetry.addData("vel", getRPM());
             telemetry.addData("MOTOR COUNTS", motor.getCurrentPosition());
             telemetry.addData("MOTOR SETPOINT", velController.getSetPoint());

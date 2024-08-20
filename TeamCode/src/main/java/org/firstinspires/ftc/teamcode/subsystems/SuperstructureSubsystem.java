@@ -28,11 +28,13 @@ public class SuperstructureSubsystem {
 
     private Servo leftServo;
     private Servo rightServo;
+    private Telemetry telemetry;
 
     private Telemetry telemetry;
 
     //Creates new superstructure (arm, elevator, wrist)
     public SuperstructureSubsystem(HardwareMap Map, Telemetry telemetry){
+
         //Create motor objects
         this.telemetry = telemetry;
 
@@ -69,6 +71,7 @@ public class SuperstructureSubsystem {
     }
 
     public void enableDebug() {
+
         Wrist.setDebug();
         Arm.setDebug();
         Elevator.setDebug();
@@ -76,13 +79,15 @@ public class SuperstructureSubsystem {
 
     //Sample preset - Brings all mechanisms to 0
     public void zeroPreset() {
+
         Wrist.setAngle(0);
         Arm.setAngle(0);
         Elevator.setInches(0);
     }
 
-    //Sample preset - Brings all mechanisms to high dropoff
+    //Sample preset - Brings all mechanisms to high drop-off
     public void highPreset() {
+
         Wrist.setAngle(1200);
         Arm.setAngle(2800);
         Elevator.setInches(1360);
@@ -90,6 +95,7 @@ public class SuperstructureSubsystem {
 
     //Sample preset - Brings all mechanisms to pickup
     public void pickupPreset() {
+
         Wrist.setAngle(1650);
         Arm.setAngle(0);
         Elevator.setInches(0);
@@ -97,36 +103,33 @@ public class SuperstructureSubsystem {
 
     //Sample preset - Brings all mechanisms to medium
     public void mediumPreset() {
+
         Wrist.setAngle(1130);
         Arm.setAngle(1970);
         Elevator.setInches(1360);
     }
 
     /**
-     * Sets the arm into a manual input mode where the imput can be toggled by button
-     * @param Input raw input - should be a joystick
+     * Sets the arm into a manual input mode where the input can be toggled by button
+     * @param input raw input - should be a joystick
      * @param armToggle button to input to arm
      * @param wristToggle button to input to wrist
      * @param elevatorToggle button to input to elevator
      */
-    public void ManualInput(double Input, boolean armToggle, boolean wristToggle, boolean elevatorToggle) {
+    public void ManualInput(double input, boolean armToggle, boolean wristToggle, boolean elevatorToggle) {
 
-        if (armToggle) { Arm.setOutput(Input); }
-        else { Arm.setOutput(0); }
-
-        if (wristToggle) { Wrist.setOutput(Input); }
-        else { Wrist.setOutput(0); }
-
-        if (elevatorToggle) { Elevator.setOutput(Input); }
-        else { Elevator.setOutput(0); }
+        Arm.setOutput(armToggle ? input : 0);
+        Wrist.setOutput(wristToggle ? input : 0);
+        Elevator.setOutput(elevatorToggle ? input : 0);
     }
 
     public void periodic() {
+
         Arm.armPeriodic();
         Wrist.armPeriodic();
         Elevator.armPeriodic();
-      /*  telemetry.addData("Arm Angle", Arm.getAngle());
+        telemetry.addData("Arm Angle", Arm.getAngle());
         telemetry.addData("Wrist Angle", Wrist.getAngle());
-        telemetry.addData("Elevator Inches", Elevator.getInches()); */
+        telemetry.addData("Elevator Inches", Elevator.getInches());
     }
 }

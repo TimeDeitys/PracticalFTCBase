@@ -29,6 +29,7 @@ public class LightningExampleTeleop extends LinearOpMode {
     private ColorHuskylens m_COLORLens;
     private ApriltagUSBCamera m_ATUSB;
 
+
     @Override
     public void runOpMode() {
         //Run when initializing
@@ -52,6 +53,7 @@ public class LightningExampleTeleop extends LinearOpMode {
                 m_ATLens.runHuskyLens();
                 m_COLORLens.runHuskyLens();
                 m_ATUSB.periodic();
+
                 telemetry.addData(
                         "Periodic currently running",
                         "Operator can hold left bumper for manual arm control");
@@ -81,7 +83,6 @@ public class LightningExampleTeleop extends LinearOpMode {
                 if (Operator.getButton(GamepadKeys.Button.Y)) {
                     m_Superstructure.highPreset();
                 }
-
 
                 //Superstructure manual input toggle - Triggered by holding holding left bumper
                 if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {

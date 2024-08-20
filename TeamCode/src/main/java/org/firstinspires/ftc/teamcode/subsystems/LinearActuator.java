@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
@@ -37,7 +35,7 @@ public class LinearActuator {
      * Returns the current extension of the actuator in inches
      */
     public double getInches() {
-        return (motor.getCurrentPosition());
+        return (motor.getCurrentPosition() / countsPerInch);
     }
 
     /**
@@ -57,6 +55,11 @@ public class LinearActuator {
     public void setOutput(double speed) {
         PIDOn = false;
         motor.set(speed);
+    }
+
+    //zero the encoder
+    public void setZero() {
+        motor.resetEncoder();
     }
 
     /**

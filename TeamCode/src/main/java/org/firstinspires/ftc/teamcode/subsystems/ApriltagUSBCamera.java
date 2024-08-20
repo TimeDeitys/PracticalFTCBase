@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import android.util.Size;
 
+import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -22,6 +23,15 @@ public class ApriltagUSBCamera {
     private Telemetry telemetry;
     private HardwareMap Map;
 
+    public double TagX;
+    public double TagY;
+    public double TagZ;
+
+    public double TagInches;
+    public double TagAngle;
+    public double TagID;
+    private double TagCenter;
+
     public ApriltagUSBCamera(HardwareMap Map, Telemetry telemetry) {
         this.telemetry = telemetry;
         this.Map = Map;
@@ -30,12 +40,12 @@ public class ApriltagUSBCamera {
     }
 
     public void periodic() {
+      
         telemetryAprilTag();
 
     }
 
     private void initAprilTag() {
-
         // Create the AprilTag processor.
         aprilTag = new AprilTagProcessor.Builder()
 
@@ -105,6 +115,14 @@ public class ApriltagUSBCamera {
                 telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)", detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.z));
                 telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
                 telemetry.addLine(String.format("RBE %6.1f %6.1f %6.1f  (inch, deg, deg)", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.elevation));
+                TagX = detection.ftcPose.x;
+                TagY = detection.ftcPose.x;
+                TagZ = detection.ftcPose.x;
+                TagCenter = detection.center.x;
+
+                TagInches = detection.ftcPose.range;
+                TagAngle = detection.ftcPose.yaw;
+
             } else {
                 telemetry.addLine(String.format("\n==== (ID %d) Unknown", detection.id));
                 telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detection.center.x, detection.center.y));
@@ -117,6 +135,19 @@ public class ApriltagUSBCamera {
         telemetry.addLine("RBE = Range, Bearing & Elevation");
 
     }   // end method telemetryAprilTag()
+
+    //returns a path 1, 2, or 3 depending on where the block is located
+    //Assumes a default camera resolution width of 640
+    public int GetCenterstagePath() {
+            if (TagCenter < 213) {
+                return 1;
+            } else if (TagCenter > 213 && TagCenter < 426) {
+                return 2;
+            } else if (TagCenter > 426) {
+                return 3;
+            }
+        return 0;
+    }
 
     public void disableProcessor() {
         visionPortal.setProcessorEnabled(aprilTag, false);

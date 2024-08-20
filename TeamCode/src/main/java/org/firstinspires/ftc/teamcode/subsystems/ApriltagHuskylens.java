@@ -18,6 +18,7 @@ public class ApriltagHuskylens {
 
     private double TagX;
     private double TagY;
+    private double TagSize;
 
     Deadline rateLimit = new Deadline(READ_PERIOD, TimeUnit.MILLISECONDS);
 
@@ -30,7 +31,7 @@ public class ApriltagHuskylens {
         if (!huskylens.knock()) {
             telemetry.addData(">>", "Problem communicating with" + huskylens.getDeviceName());
         } else {
-      //      telemetry.addData(">>", "Press Start to continue with AT");
+            telemetry.addData(">>", "Press Start to continue with AT");
         }
 
         huskylens.selectAlgorithm(HuskyLens.Algorithm.TAG_RECOGNITION);
@@ -43,10 +44,27 @@ public class ApriltagHuskylens {
        for(int i = 0; i < blocks.length; i++) {
            TagX = blocks[i].x;
            TagY = blocks[i].y;
+           TagSize = blocks[i].width;
            telemetry.addData("block", blocks[i].toString());
            telemetry.addData("Tag X", getTagX());
            telemetry.addData("Tag Y", getTagY());
+           telemetry.addData("Tag Size", getTagSize());
        }
+    }
+
+    //returns a path 1, 2, or 3 depending on where the block is located
+    public int GetCenterstagePath() {
+        HuskyLens.Block[] blocks = huskylens.blocks();
+        for(int i = 0; i < blocks.length; i++) {
+            if (blocks[i].x < 100) {
+                return 1;
+            } else if (blocks[i].x > 100 && blocks[i].x < 200) {
+                return 2;
+            } else if (blocks[i].x > 200) {
+                return 3;
+            }
+        }
+        return 0;
     }
 
     public double getTagX() {
@@ -55,5 +73,9 @@ public class ApriltagHuskylens {
 
     public double getTagY() {
         return TagY;
+    }
+
+    public double getTagSize() {
+        return TagSize;
     }
 }

@@ -12,7 +12,7 @@ public class Constants {
         public static final double DriveSpeedMult = 1;
 
         //Initial IMU angle offset for field centric in degrees
-        public static final double IMUOffset = 0;
+        public static final double IMUOffset = -90;
     }
 
     public static class SuperstructureConstants {
@@ -24,5 +24,13 @@ public class Constants {
 
         public static final double elevatorCPI = 1;
         public static final PIDCoefficients elevatorPID = new PIDCoefficients(0.005, 0.0001, 0);
+    }
+
+    public static class AutoConstants {
+        public static final double COUNTS_PER_INCH = 338.569; //Found emperically with drive tuning
+        public static final PIDCoefficients TranslationPID = new PIDCoefficients(0.01, 0, 0);
+        public static final PIDCoefficients StrafePID = new PIDCoefficients(0.015, 0, 0);
+        public static final PIDCoefficients HeadingPID = new PIDCoefficients(0.007, 0, 0);
+        public static double PIDTolerance = 50; //Tolerance in TICKS
     }
 }
