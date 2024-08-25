@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-import org.firstinspires.ftc.teamcode.subsystems.ColorHuskylens;
+import org.firstinspires.ftc.teamcode.hardware.vision.ColorHuskylens;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
 @Config

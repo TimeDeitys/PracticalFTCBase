@@ -1,6 +1,4 @@
-package org.firstinspires.ftc.teamcode.subsystems;
-
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+package org.firstinspires.ftc.teamcode.hardware.vision;
 
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -10,8 +8,8 @@ import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 import java.util.concurrent.TimeUnit;
 
-public class ApriltagHuskylens {
-    private final int READ_PERIOD = 20;
+public class ColorHuskylens {
+    private final int READ_PERIOD = 50;
 
     private HuskyLens huskylens;
     private Telemetry telemetry;
@@ -22,19 +20,19 @@ public class ApriltagHuskylens {
 
     Deadline rateLimit = new Deadline(READ_PERIOD, TimeUnit.MILLISECONDS);
 
-    public ApriltagHuskylens(HardwareMap Map, Telemetry telemetry) {
+    public ColorHuskylens(HardwareMap Map, Telemetry telemetry) {
         this.telemetry = telemetry;
-        huskylens = Map.get(HuskyLens.class, "ATHuskyLens");
+        huskylens = Map.get(HuskyLens.class, "COLORHuskyLens");
 
         rateLimit.expire();
 
         if (!huskylens.knock()) {
             telemetry.addData(">>", "Problem communicating with" + huskylens.getDeviceName());
         } else {
-            telemetry.addData(">>", "Press Start to continue with AT");
+            telemetry.addData(">>", "Press Start to continue with Color");
         }
 
-        huskylens.selectAlgorithm(HuskyLens.Algorithm.TAG_RECOGNITION);
+        huskylens.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);
 
     }
 
@@ -44,7 +42,6 @@ public class ApriltagHuskylens {
        for(int i = 0; i < blocks.length; i++) {
            TagX = blocks[i].x;
            TagY = blocks[i].y;
-           TagSize = blocks[i].width;
            telemetry.addData("block", blocks[i].toString());
            telemetry.addData("Tag X", getTagX());
            telemetry.addData("Tag Y", getTagY());
