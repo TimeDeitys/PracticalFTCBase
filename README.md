@@ -30,7 +30,7 @@ NOTE: All general hardware devices(IE Cameras, huskylenses, ect) expect a partic
 >Color Detection Huskylens = COLORHuskyLens\
 >Apriltag USB Camera = Webcam 1
 
-Sensor objects are passed a hardwaremap, a telemetry, and a config name. this makes isntantiation much easier as there may be multiple of the same type of sensor per robot. This methodology may be adopted for all devices in the future.
+Sensor objects are passed a hardware map, a telemetry, and a config name. this makes instantiation much easier as there may be multiple of the same type of sensor per robot. This methodology may be adopted for all devices in the future.
 
 Autonomous movement is handled with a custom drive controller, titled **Drivebot**.
 
