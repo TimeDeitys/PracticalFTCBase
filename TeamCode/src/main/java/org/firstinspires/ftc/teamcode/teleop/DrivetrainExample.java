@@ -7,18 +7,15 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 
-@TeleOp(name = "Drive Train Base")
-public class DriveTrainBase extends LinearOpMode {
+@TeleOp(name = "DrivetrainExample")
+public class DrivetrainExample extends LinearOpMode {
 
     //Gamepad bindings
     private GamepadEx Driver;
     private GamepadEx Operator;
 
-
     //subsystems
     private MecanumDriveSubsystem m_Drive;
-
-
 
     @Override
     public void runOpMode() {
@@ -31,13 +28,11 @@ public class DriveTrainBase extends LinearOpMode {
         waitForStart();
         //Run immediately when starting
 
-
         while (opModeIsActive()) {
                 //Periodic Opmode
                 telemetry.addData(
                         "Periodic currently running",
-                        "Operator can hold left bumper for manual arm control");
-
+                        "");
 
                 //IMU Reset button
                 if (Driver.getButton(GamepadKeys.Button.Y)) {
@@ -46,12 +41,6 @@ public class DriveTrainBase extends LinearOpMode {
 
                 //Drivetrain method
                 m_Drive.Drive(Driver.getLeftX(), Driver.getLeftY(), Driver.getRightX(), Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
-
-
-                //Superstructure manual input toggle - Triggered by holding holding left bumper
-
-
-
 
                 telemetry.update();
             }

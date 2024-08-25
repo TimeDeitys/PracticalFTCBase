@@ -29,7 +29,7 @@ public class SuperstructureSubsystem {
     private Servo leftServo;
     private Servo rightServo;
     private Telemetry telemetry;
-    
+
     //Creates new superstructure (arm, elevator, wrist)
     public SuperstructureSubsystem(HardwareMap Map, Telemetry telemetry){
 
