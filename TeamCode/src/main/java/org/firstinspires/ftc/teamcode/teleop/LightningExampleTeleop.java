@@ -6,9 +6,9 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.subsystems.ApriltagHuskylens;
-import org.firstinspires.ftc.teamcode.subsystems.ApriltagUSBCamera;
-import org.firstinspires.ftc.teamcode.subsystems.ColorHuskylens;
+import org.firstinspires.ftc.teamcode.hardware.vision.ApriltagHuskylens;
+import org.firstinspires.ftc.teamcode.hardware.vision.ApriltagUSBCamera;
+import org.firstinspires.ftc.teamcode.hardware.vision.ColorHuskylens;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 

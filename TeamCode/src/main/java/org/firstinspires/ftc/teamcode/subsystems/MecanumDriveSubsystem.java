@@ -136,7 +136,7 @@ public class MecanumDriveSubsystem {
         int ForwardTarget;
         int StrafeTarget;
 
-        if(linearOpMode.opModeIsActive()) {
+        if(true) {
 
             //Create PID constants
             PIDCoefficients TC = Constants.AutoConstants.TranslationPID;
@@ -159,8 +159,7 @@ public class MecanumDriveSubsystem {
             StrafeController.setSetPoint(StrafeTarget);
             TranslationController.setSetPoint(ForwardTarget);
 
-            while(linearOpMode.opModeIsActive() &&
-                    (runtime.seconds() < TimeoutS) &&
+            while((runtime.seconds() < TimeoutS) &&
             !TranslationController.atSetPoint() && !StrafeController.atSetPoint() ) {
                 //Drivebot Periodic
                 //actually drives the robot.
@@ -185,7 +184,7 @@ public class MecanumDriveSubsystem {
     public void SetHeading(double HeadingTarget, double TimeoutS) {
         double initialHeading = getHeading();
 
-        if(linearOpMode.opModeIsActive()) {
+        if(true) {
 
             //Create PID constants
             PIDCoefficients HC = Constants.AutoConstants.HeadingPID;
@@ -198,8 +197,7 @@ public class MecanumDriveSubsystem {
 
             HeadingController.setSetPoint(HeadingTarget);
 
-            while(linearOpMode.opModeIsActive() &&
-                    (runtime.seconds() < TimeoutS) &&
+            while((runtime.seconds() < TimeoutS) &&
                     !HeadingController.atSetPoint()) {
                 //Drivebot Periodic
                 //actually drives the robot.

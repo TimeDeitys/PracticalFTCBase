@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.teamcode.subsystems;
+package org.firstinspires.ftc.teamcode.hardware.vision;
+
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -8,8 +10,8 @@ import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 
 import java.util.concurrent.TimeUnit;
 
-public class ColorHuskylens {
-    private final int READ_PERIOD = 50;
+public class ApriltagHuskylens {
+    private final int READ_PERIOD = 20;
 
     private HuskyLens huskylens;
     private Telemetry telemetry;
@@ -18,21 +20,26 @@ public class ColorHuskylens {
     private double TagY;
     private double TagSize;
 
+    public static enum visionState {
+        invalid, left, center, right
+    }
+    public visionState VisionStates = visionState.invalid;
+
     Deadline rateLimit = new Deadline(READ_PERIOD, TimeUnit.MILLISECONDS);
 
-    public ColorHuskylens(HardwareMap Map, Telemetry telemetry) {
+    public ApriltagHuskylens(HardwareMap Map, Telemetry telemetry) {
         this.telemetry = telemetry;
-        huskylens = Map.get(HuskyLens.class, "COLORHuskyLens");
+        huskylens = Map.get(HuskyLens.class, "ATHuskyLens");
 
         rateLimit.expire();
 
         if (!huskylens.knock()) {
             telemetry.addData(">>", "Problem communicating with" + huskylens.getDeviceName());
         } else {
-            telemetry.addData(">>", "Press Start to continue with Color");
+            telemetry.addData(">>", "Press Start to continue with AT");
         }
 
-        huskylens.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);
+        huskylens.selectAlgorithm(HuskyLens.Algorithm.TAG_RECOGNITION);
 
     }
 
@@ -42,6 +49,7 @@ public class ColorHuskylens {
        for(int i = 0; i < blocks.length; i++) {
            TagX = blocks[i].x;
            TagY = blocks[i].y;
+           TagSize = blocks[i].width;
            telemetry.addData("block", blocks[i].toString());
            telemetry.addData("Tag X", getTagX());
            telemetry.addData("Tag Y", getTagY());
@@ -50,18 +58,18 @@ public class ColorHuskylens {
     }
 
     //returns a path 1, 2, or 3 depending on where the block is located
-    public int GetCenterstagePath() {
+    public void setCenterstagePathState() {
         HuskyLens.Block[] blocks = huskylens.blocks();
         for(int i = 0; i < blocks.length; i++) {
             if (blocks[i].x < 100) {
-                return 1;
+                visionState VisionStates = visionState.left;
             } else if (blocks[i].x > 100 && blocks[i].x < 200) {
-                return 2;
+                visionState VisionStates = visionState.center;
             } else if (blocks[i].x > 200) {
-                return 3;
+                visionState VisionStates = visionState.right;
             }
         }
-        return 0;
+        visionState VisionStates = visionState.invalid;
     }
 
     public double getTagX() {

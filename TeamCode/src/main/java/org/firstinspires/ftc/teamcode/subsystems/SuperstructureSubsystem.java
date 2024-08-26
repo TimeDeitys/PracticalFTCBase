@@ -1,15 +1,15 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
-import com.arcrobotics.ftclib.hardware.ServoEx;
-import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
+import org.firstinspires.ftc.teamcode.hardware.DoubleMotorArm;
+import org.firstinspires.ftc.teamcode.hardware.DoubleServoPincher;
+import org.firstinspires.ftc.teamcode.hardware.LinearActuator;
+import org.firstinspires.ftc.teamcode.hardware.SingleMotorArm;
 
 public class SuperstructureSubsystem {
 
@@ -28,8 +28,6 @@ public class SuperstructureSubsystem {
 
     private Servo leftServo;
     private Servo rightServo;
-    private Telemetry telemetry;
-
     private Telemetry telemetry;
 
     //Creates new superstructure (arm, elevator, wrist)

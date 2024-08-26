@@ -3,13 +3,11 @@ package org.firstinspires.ftc.teamcode.teleop;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
-import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.subsystems.ApriltagHuskylens;
-import org.firstinspires.ftc.teamcode.subsystems.ColorHuskylens;
+import org.firstinspires.ftc.teamcode.hardware.vision.ApriltagHuskylens;
+import org.firstinspires.ftc.teamcode.hardware.vision.ColorHuskylens;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
