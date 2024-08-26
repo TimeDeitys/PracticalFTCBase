@@ -90,7 +90,6 @@ public class ExampleRRAuto extends LinearOpMode {
 
 
         while (!isStopRequested() && !opModeIsActive()) {
-            objectPosition = m_COLORLens.GetCenterstagePath();
             telemetry.addData("Position during Init", objectPosition);
             telemetry.update();
         }

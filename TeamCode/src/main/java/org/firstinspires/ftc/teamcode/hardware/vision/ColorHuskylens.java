@@ -18,6 +18,11 @@ public class ColorHuskylens {
     private double TagY;
     private double TagSize;
 
+    public static enum visionState {
+        invalid, left, center, right
+    }
+    public visionState VisionStates = visionState.invalid;
+
     Deadline rateLimit = new Deadline(READ_PERIOD, TimeUnit.MILLISECONDS);
 
     public ColorHuskylens(HardwareMap Map, Telemetry telemetry) {
@@ -50,18 +55,18 @@ public class ColorHuskylens {
     }
 
     //returns a path 1, 2, or 3 depending on where the block is located
-    public int GetCenterstagePath() {
+    public void setCenterstagePathState() {
         HuskyLens.Block[] blocks = huskylens.blocks();
         for(int i = 0; i < blocks.length; i++) {
             if (blocks[i].x < 100) {
-                return 1;
+                VisionStates = visionState.left;
             } else if (blocks[i].x > 100 && blocks[i].x < 200) {
-                return 2;
+                VisionStates = visionState.center;
             } else if (blocks[i].x > 200) {
-                return 3;
+                VisionStates = visionState.right;
             }
         }
-        return 0;
+        VisionStates = visionState.invalid;
     }
 
     public double getTagX() {
