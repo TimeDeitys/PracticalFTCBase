@@ -37,12 +37,12 @@ public class ExampleDrivebotAuto extends LinearOpMode {
         if (isStopRequested()) return;
 
         //Object position conditional statement
-        if (objectPosition == 1) {
+        if ((0.9 < objectPosition) && (objectPosition < 1.1)) {
             //AUTO PATH 1
            m_Drive.AutoDriveRC(12, 0, 5);
            //Drives forward 1 foot
 
-        } else if (objectPosition == 2) {
+        } else if ((1.1 < objectPosition) && (objectPosition < 2.1)) {
             //AUTO PATH 2
             m_Drive.AutoDriveRC(0, 12, 5);
             //Drives right 1 foot
