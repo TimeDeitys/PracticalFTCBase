@@ -168,6 +168,7 @@ public class MecanumDriveSubsystem {
                 telemetry.addData("X Travelled;", getForwardTicks());
                 telemetry.addData("Y Travelled;", getStrafeTicks());
                 telemetry.addData("Heading;", getHeading());
+                telemetry.update();
             }
 
             //Stop all motion
@@ -204,6 +205,7 @@ public class MecanumDriveSubsystem {
                 DriveRobotRelative(0, 0, HeadingController.calculate(getHeading(), initialHeading), false);
                 telemetry.addData("AUTO DRIVE STATUS", "HEADING");
                 telemetry.addData("Heading;", getHeading());
+                telemetry.update();
             }
 
             //Stop all motion

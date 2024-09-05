@@ -27,10 +27,10 @@ public class Constants {
     }
 
     public static class AutoConstants {
-        public static final double COUNTS_PER_INCH = 338.569; //Found emperically with drive tuning
-        public static final PIDCoefficients TranslationPID = new PIDCoefficients(0.01, 0, 0);
-        public static final PIDCoefficients StrafePID = new PIDCoefficients(0.015, 0, 0);
-        public static final PIDCoefficients HeadingPID = new PIDCoefficients(0.007, 0, 0);
-        public static double PIDTolerance = 50; //Tolerance in TICKS
+        public static final double COUNTS_PER_INCH = 338.569; //Found empirically with drive tuning
+        public static final PIDCoefficients TranslationPID = new PIDCoefficients(0.05, 0, 0);
+        public static final PIDCoefficients StrafePID = new PIDCoefficients(0.00, 0, 0);
+        public static final PIDCoefficients HeadingPID = new PIDCoefficients(0.000, 0, 0);
+        public static double PIDTolerance = 10; //Tolerance in TICKS
     }
 }

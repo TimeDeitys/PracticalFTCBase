@@ -59,6 +59,7 @@ public class ExampleDrivebotAuto extends LinearOpMode {
             case invalid:
                 telemetry.addData("Position", m_COLORLens.VisionStates.name());
                 //invalid position actions go here.
+                m_Drive.AutoDriveRC(12, 0, 5);
 
                 break;
         }
