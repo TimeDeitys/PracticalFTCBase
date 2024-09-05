@@ -28,6 +28,7 @@ public class ExampleDrivebotAuto extends LinearOpMode {
         while (!isStopRequested() && !opModeIsActive()) {
             m_COLORLens.setCenterstagePathState();
             telemetry.update();
+            telemetry.addData("Position", m_COLORLens.VisionStates.name());
         }
         waitForStart();
 
