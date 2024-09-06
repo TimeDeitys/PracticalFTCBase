@@ -45,6 +45,7 @@ public class ColorHuskylens {
        HuskyLens.Block[] blocks = huskylens.blocks();
        telemetry.addData("Block Count", blocks.length);
        for(int i = 0; i < blocks.length; i++) {
+
            TagX = blocks[i].x;
            TagY = blocks[i].y;
            telemetry.addData("block", blocks[i].toString());
@@ -64,9 +65,10 @@ public class ColorHuskylens {
                 VisionStates = visionState.center;
             } else if (blocks[i].x > 200) {
                 VisionStates = visionState.right;
+            } else {
+                VisionStates = visionState.invalid;
             }
         }
-        VisionStates = visionState.invalid;
     }
 
     public double getTagX() {

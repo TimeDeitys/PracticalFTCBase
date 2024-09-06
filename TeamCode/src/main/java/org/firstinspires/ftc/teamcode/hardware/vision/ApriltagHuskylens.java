@@ -67,9 +67,10 @@ public class ApriltagHuskylens {
                 visionState VisionStates = visionState.center;
             } else if (blocks[i].x > 200) {
                 visionState VisionStates = visionState.right;
+            } else {
+                VisionStates = ApriltagHuskylens.visionState.invalid;
             }
         }
-        visionState VisionStates = visionState.invalid;
     }
 
     public double getTagX() {
