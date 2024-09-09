@@ -1,8 +1,11 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Constants;
@@ -28,6 +31,8 @@ public class SuperstructureSubsystem {
     private Servo leftServo;
     private Servo rightServo;
     private Telemetry telemetry;
+
+    ElapsedTime runtime;
 
     //Creates new superstructure (arm, elevator, wrist)
     public SuperstructureSubsystem(HardwareMap Map, Telemetry telemetry){
@@ -120,5 +125,24 @@ public class SuperstructureSubsystem {
         Laterator.Periodic();
         telemetry.addData("Elevator Inches", Elevator.getInches());
         telemetry.addData("Laterator Inches", Laterator.getInches());
+    }
+
+    public void setAutoPosition(double ElevatorInches, double LateratorInches, double TimeoutS) {
+            runtime.reset();
+
+            Elevator.setInches(ElevatorInches);
+            Laterator.setInches(LateratorInches);
+
+            while((runtime.seconds() < TimeoutS) &&
+                    !Elevator.atSetpoint() && Laterator.atSetpoint() ) {
+                //Periodic
+                //actually drives the Superstructure.
+                Elevator.Periodic();
+                Laterator.Periodic();
+                telemetry.addData("SUPERSTRUCTURE STATUS", "RUNNING");
+                telemetry.addData("Elevator inches:", Elevator.getInches());
+                telemetry.addData("Laterator Inches:", Laterator.getInches());
+                telemetry.update();
+            }
     }
 }

@@ -136,8 +136,6 @@ public class MecanumDriveSubsystem {
         int ForwardTarget;
         int StrafeTarget;
 
-        if(true) {
-
             //Create PID constants
             PIDCoefficients TC = Constants.AutoConstants.TranslationPID;
             PIDCoefficients SC = Constants.AutoConstants.StrafePID;
@@ -175,7 +173,6 @@ public class MecanumDriveSubsystem {
             DriveRobotRelative(0,0,0, false);
             resetDriveEncoders();
         }
-    }
 
     /**
      * Autonomously Drive to a specific heading.

@@ -77,6 +77,9 @@ public class LinearActuator {
         isDebug = true;
     }
 
+    public boolean atSetpoint()
+    {return armController.atSetPoint();}
+
     /**
      * Runs all periodic functions of the actuator - MUST BE ADDED TO PERIODIC ROBOT CODE.
      */
@@ -84,19 +87,6 @@ public class LinearActuator {
         // Enable/disable PID
         if (PIDOn) {
             motor.set(armController.calculate(getInches(), setpoint));
-        }  else {
-          //  telemetry.addData("MOTOR PID IS OFF", 0);
         }
-
-        //Debug periodic
-        if (isDebug) {
-          /*  telemetry.addData("DEBUG IS ON", "");
-            telemetry.addData("INCHES", getInches());
-            telemetry.addData("MOTOR COUNTS", motor.getCurrentPosition());
-            telemetry.addData("MOTOR SETPOINT", armController.getSetPoint());
-            telemetry.addData("PID OUTPUT", armController.calculate(getInches(), setpoint));
-            telemetry.addData("POSITION ERROR", armController.getPositionError()); */
-        }
-
     }
 }
