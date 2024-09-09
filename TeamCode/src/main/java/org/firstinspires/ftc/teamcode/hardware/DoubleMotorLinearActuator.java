@@ -4,8 +4,9 @@ import com.arcrobotics.ftclib.controller.PIDController;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
 
-public class LinearActuator {
-    public Motor motor;
+public class DoubleMotorLinearActuator {
+    public Motor motor1;
+    public Motor motor2;
     PIDController armController;
     double countsPerInch;
     double setpoint;
@@ -13,21 +14,26 @@ public class LinearActuator {
     boolean PIDOn = false;
 
     /**
-     * Sets up the constructor for a single motor Linear actuator.
+     * Sets up the constructor for a double motor Linear actuator.
      * Make sure to invert the motor so that Positive is up
      *NOTE: THIS ACTUATOR WILL RESET ENCODER COUNTS WHEN INITIALIZED
-     * @param motor Motor for the arm
+     * @param motor1 Motor for the arm
+     * @param motor2 Motor for the arm
      * @param countsPerInch Motor counts per inch traveled. Best found emperically
-     * @param Invert  True/false for direction inversion
+     * @param invertMotor1  True/false for direction inversion
+     * @param invertMotor2  True/false for direction inversion
      * @param PIDConstants Constants for arm PID tuning
      */
-    public LinearActuator(Motor motor, double countsPerInch, boolean Invert, PIDCoefficients PIDConstants){
-        this.motor = motor;
+    public DoubleMotorLinearActuator(Motor motor1, Motor motor2, double countsPerInch, boolean invertMotor1 ,boolean invertMotor2, PIDCoefficients PIDConstants){
+        this.motor1 = motor1;
+        this.motor2 = motor2;
 
         armController = new PIDController(PIDConstants.p, PIDConstants.i, PIDConstants.d);
 
-        motor.setInverted(Invert);
-        motor.resetEncoder();
+        motor1.setInverted(invertMotor1);
+        motor2.setInverted(invertMotor2);
+        motor1.resetEncoder();
+        motor2.resetEncoder();
 
     }
 
@@ -35,7 +41,7 @@ public class LinearActuator {
      * Returns the current extension of the actuator in inches
      */
     public double getInches() {
-        return (motor.getCurrentPosition() / countsPerInch);
+        return (motor1.getCurrentPosition() / countsPerInch);
     }
 
     /**
@@ -50,16 +56,18 @@ public class LinearActuator {
 
     /**
      * Sets the arm to a percentage output
-     * @param speed the actuuator speed
+     * @param speed the actuator speed
      */
     public void setOutput(double speed) {
         PIDOn = false;
-        motor.set(speed);
+        motor1.set(speed);
+        motor2.set(speed);
     }
 
     //zero the encoder
     public void setZero() {
-        motor.resetEncoder();
+        motor1.resetEncoder();
+        motor2.resetEncoder();
     }
 
     /**
@@ -83,7 +91,8 @@ public class LinearActuator {
     public void Periodic(){
         // Enable/disable PID
         if (PIDOn) {
-            motor.set(armController.calculate(getInches(), setpoint));
+            motor1.set(armController.calculate(getInches(), setpoint));
+            motor2.set(armController.calculate(getInches(), setpoint));
         }  else {
           //  telemetry.addData("MOTOR PID IS OFF", 0);
         }

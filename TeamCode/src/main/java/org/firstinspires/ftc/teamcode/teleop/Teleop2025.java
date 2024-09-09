@@ -6,14 +6,11 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.hardware.vision.ApriltagHuskylens;
-import org.firstinspires.ftc.teamcode.hardware.vision.ApriltagUSBCamera;
-import org.firstinspires.ftc.teamcode.hardware.vision.ColorHuskylens;
 import org.firstinspires.ftc.teamcode.subsystems.MecanumDriveSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.SuperstructureSubsystem;
 
-@TeleOp(name = "Lightning Example Teleop")
-public class LightningExampleTeleop extends LinearOpMode {
+@TeleOp(name = "2025 Teleop")
+public class Teleop2025 extends LinearOpMode {
 
     //Gamepad bindings
     private GamepadEx Driver;
@@ -25,19 +22,11 @@ public class LightningExampleTeleop extends LinearOpMode {
     private MecanumDriveSubsystem m_Drive;
     private SuperstructureSubsystem m_Superstructure;
 
-    private ApriltagHuskylens m_ATLens;
-    private ColorHuskylens m_COLORLens;
-    private ApriltagUSBCamera m_ATUSB;
-
-
     @Override
     public void runOpMode() {
         //Run when initializing
         m_Drive = new MecanumDriveSubsystem(hardwareMap, telemetry);
         m_Superstructure = new SuperstructureSubsystem(hardwareMap, telemetry);
-        m_ATLens = new ApriltagHuskylens(hardwareMap, telemetry);
-        m_COLORLens = new ColorHuskylens(hardwareMap, telemetry);
-        m_ATUSB = new ApriltagUSBCamera(hardwareMap, telemetry);
 
         Driver = new GamepadEx(gamepad1);
         Operator = new GamepadEx(gamepad2);
@@ -50,14 +39,10 @@ public class LightningExampleTeleop extends LinearOpMode {
         while (opModeIsActive()) {
                 //Periodic Opmode
                 m_Superstructure.periodic();
-                m_ATLens.runHuskyLens();
-                m_COLORLens.runHuskyLens();
-                m_ATUSB.periodic();
 
                 telemetry.addData(
                         "Periodic currently running",
-                        "Operator can hold left bumper for manual arm control");
-
+                        "Operator can hold left bumper for manual control");
 
                 //IMU Reset button
                 if (Driver.getButton(GamepadKeys.Button.Y)) {
@@ -85,17 +70,10 @@ public class LightningExampleTeleop extends LinearOpMode {
                 }
 
                 //Superstructure manual input toggle - Triggered by holding holding left bumper
-                if (Operator.getButton(GamepadKeys.Button.DPAD_UP)) {
-                    m_Superstructure.ManualInput(
-                            Operator.getLeftY(),
-                            Operator.getButton(GamepadKeys.Button.A),
-                            Operator.getButton(GamepadKeys.Button.B),
-                            Operator.getButton(GamepadKeys.Button.X)
-                    );
+                if (Operator.getButton(GamepadKeys.Button.LEFT_BUMPER)) {
+                    m_Superstructure.ManualInput(Operator.getLeftY(), Operator.getRightY() );
                     telemetry.addData(
-                            "MANUAL INPUT ENABLED",
-                            "A = ARM, B = WRIST, X = ELEVATOR." + "USE LEFT STICK TO CONTROL INPUT");
-
+                            "MANUAL INPUT", "ENABLED");
                 }
 
                 //Pincher controls

@@ -19,11 +19,11 @@ public class Constants {
         public static final double wristGearRatio = 1;
         public static final PIDCoefficients wristPID = new PIDCoefficients(0.003, 0, 0);
 
-        public static final double armGearRatio = 1;
-        public static final PIDCoefficients armPID = new PIDCoefficients(0.005, 0, 0);
-
         public static final double elevatorCPI = 1;
         public static final PIDCoefficients elevatorPID = new PIDCoefficients(0.005, 0.0001, 0);
+
+        public static final double lateratorCPI = 1;
+        public static final PIDCoefficients lateratorPID = new PIDCoefficients(0.005, 0.0001, 0);
     }
 
     public static class AutoConstants {
