@@ -30,6 +30,14 @@ public class ExampleDrivebotAuto extends LinearOpMode {
 
         if (isStopRequested()) return;
 
-        m_Drive.AutoDriveRC(12, 0, 5);
+        m_Drive.AutoDriveRC(8, 0, 2);
+        sleep(500);
+        m_Drive.AutoDriveRC(-8, 0, 2);
+        m_Drive.AutoDriveRC(0, -36, 3);
+        m_Drive.AutoDriveRC(2, 0, 1);
+        sleep(500);
+        m_Drive.AutoDriveRC(0, 36, 3);
+        m_Drive.AutoDriveRC(8, 0, 1);
+
     }
 }

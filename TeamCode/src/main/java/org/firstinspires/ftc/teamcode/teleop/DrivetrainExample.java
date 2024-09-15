@@ -41,6 +41,7 @@ public class DrivetrainExample extends LinearOpMode {
 
                 //Drivetrain method
                 m_Drive.Drive(Driver.getLeftX(), Driver.getLeftY(), Driver.getRightX(), Driver.getButton(GamepadKeys.Button.RIGHT_BUMPER));
+                telemetry.addData("Heading", m_Drive.getHeading());
 
                 telemetry.update();
             }

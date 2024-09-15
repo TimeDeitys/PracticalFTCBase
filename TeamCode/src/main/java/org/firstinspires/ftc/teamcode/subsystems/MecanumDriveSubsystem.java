@@ -85,7 +85,7 @@ public class MecanumDriveSubsystem {
     }
 
     public double getHeading() {
-        return imu.getAbsoluteHeading() - IMUOffset;
+        return -(imu.getAbsoluteHeading() - IMUOffset);
     }
 
     public void resetHeading() {
@@ -94,7 +94,7 @@ public class MecanumDriveSubsystem {
 
     public int getForwardTicks(){
         //assumes Forward deadwheel is plugged into LeftFront
-        return leftFront.getCurrentPosition();
+        return -leftFront.getCurrentPosition();
     }
 
     public int getStrafeTicks(){
@@ -127,10 +127,10 @@ public class MecanumDriveSubsystem {
     /**
      * Autonomously drive robot centric.
      * @param Forward forward/backward in inches (forward is positive)
-     * @param Right Right/left in inches (Right is positive)
+     * @param Left Right/left in inches (Left is positive)
      * @param TimeoutS  Allowed time to run command
      */
-    public void AutoDriveRC(double Forward, double Right, double TimeoutS) {
+    public void AutoDriveRC(double Forward, double Left, double TimeoutS) {
         resetDriveEncoders();
         double initialHeading = getHeading();
 
@@ -153,7 +153,7 @@ public class MecanumDriveSubsystem {
 
             //set target positions
             ForwardTarget = driveDistance(Forward);
-            StrafeTarget = driveDistance(Right);
+            StrafeTarget = driveDistance(Left);
 
             runtime.reset();
 
@@ -161,7 +161,7 @@ public class MecanumDriveSubsystem {
             TranslationController.setSetPoint(ForwardTarget);
 
             while((runtime.seconds() < TimeoutS) &&
-            !TranslationController.atSetPoint() && !StrafeController.atSetPoint() ) {
+                    (!TranslationController.atSetPoint() || !StrafeController.atSetPoint()) ) {
                 //Drivebot Periodic
                 //actually drives the robot.
                 DriveRobotRelative(StrafeController.calculate(getStrafeTicks(), StrafeTarget), TranslationController.calculate(getForwardTicks(), ForwardTarget), HeadingController.calculate(getHeading(), initialHeading), false);
@@ -186,6 +186,7 @@ public class MecanumDriveSubsystem {
      * @param TimeoutS  Allowed time to run command
      */
     public void SetHeading(double HeadingTarget, double TimeoutS) {
+        resetDriveEncoders();
         double initialHeading = getHeading();
 
         if(true) {
@@ -205,7 +206,7 @@ public class MecanumDriveSubsystem {
                     !HeadingController.atSetPoint()) {
                 //Drivebot Periodic
                 //actually drives the robot.
-                DriveRobotRelative(0, 0, HeadingController.calculate(getHeading(), initialHeading), false);
+                DriveRobotRelative(0, 0, HeadingController.calculate(getHeading(), HeadingTarget), false);
                 telemetry.addData("AUTO DRIVE STATUS", "HEADING");
                 telemetry.addData("Heading;", getHeading());
                 telemetry.update();
