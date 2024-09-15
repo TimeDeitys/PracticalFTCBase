@@ -131,6 +131,7 @@ public class MecanumDriveSubsystem {
      * @param TimeoutS  Allowed time to run command
      */
     public void AutoDriveRC(double Forward, double Right, double TimeoutS) {
+        resetDriveEncoders();
         double initialHeading = getHeading();
 
         int ForwardTarget;
@@ -165,9 +166,11 @@ public class MecanumDriveSubsystem {
                 //actually drives the robot.
                 DriveRobotRelative(StrafeController.calculate(getStrafeTicks(), StrafeTarget), TranslationController.calculate(getForwardTicks(), ForwardTarget), HeadingController.calculate(getHeading(), initialHeading), false);
                 telemetry.addData("AUTO DRIVE STATUS", "RUNNING");
-                telemetry.addData("X Travelled;", getForwardTicks());
-                telemetry.addData("Y Travelled;", getStrafeTicks());
+                telemetry.addData("X Travelled:", getForwardTicks());
+                telemetry.addData("Y Travelled:", getStrafeTicks());
                 telemetry.addData("Heading;", getHeading());
+                telemetry.addData("Target X:", ForwardTarget);
+                telemetry.addData("Target Y:", StrafeTarget);
                 telemetry.update();
             }
 
