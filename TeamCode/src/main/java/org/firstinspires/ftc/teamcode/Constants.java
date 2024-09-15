@@ -30,7 +30,7 @@ public class Constants {
         public static final double COUNTS_PER_INCH = 338.569; //Found empirically with drive tuning
         public static final PIDCoefficients TranslationPID = new PIDCoefficients(0.00035, 0, 0.000012);
         public static final PIDCoefficients StrafePID = new PIDCoefficients(0.0003, 0, 0.0);
-        public static final PIDCoefficients HeadingPID = new PIDCoefficients(0.030, 0, 0.0);
-        public static double PIDTolerance = 20; //Tolerance in TICKS
+        public static final PIDCoefficients HeadingPID = new PIDCoefficients(0.038, 0, 0.0);
+        public static double PIDTolerance = 0; //Tolerance in TICKS
     }
 }
